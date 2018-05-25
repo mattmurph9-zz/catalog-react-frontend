@@ -25,7 +25,8 @@ class List extends Component {
           (<div key={cat.name}>
             <NavLink to={`/catalog/${cat.name}`}>{cat.name}</NavLink>
            </div>))}
-           <NavLink to={'/catalog/new'}>Add Category</NavLink>
+           { localStorage.getItem('user') ? <NavLink to={'/catalog/new'}>Add Category</NavLink> : ''}
+           
       </div>
     );
   }
