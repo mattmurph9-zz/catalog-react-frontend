@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   NavLink,
 } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 
 class List extends Component {
   constructor() {
@@ -9,10 +10,30 @@ class List extends Component {
     this.state = {
       categories: [],
     };
+    this.updateState = this.updateState.bind(this);
   }
 
   componentDidMount() {
-    fetch('http://localhost:5000/catalog/JSON')
+    const history = createHistory();
+        history.listen((location, action) => {
+            //this.updateState();
+        });
+
+    console.log("IN DIDMOUNT FOR CAT LIST");
+    this.updateState();
+  }
+
+  componentWillUnmount() {
+    console.log('UNMOUNT');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("WE IN WRC");
+  }
+
+  updateState() {
+    console.log("UPDATING STATE");
+    fetch('http://localhost:5000/catalog')
       .then(results => results.json()).then(data => this.setState({ categories: data.categories }));
   }
 
@@ -23,7 +44,7 @@ class List extends Component {
         <h2>Categories</h2>
         {categories.map(cat =>
           (<div key={cat.name}>
-            <NavLink to={`/catalog/${cat.name}`}>{cat.name}</NavLink>
+            <NavLink className="btn" to={`/catalog/${cat.name}`}>{cat.name}</NavLink>
            </div>))}
            { localStorage.getItem('user') ? <NavLink to={'/catalog/new'}>Add Category</NavLink> : ''}
            

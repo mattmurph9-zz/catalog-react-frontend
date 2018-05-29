@@ -7,6 +7,7 @@ class EditItem extends Component {
     this.state = {
       name: '',
       desc: '',
+      error: '',
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -22,11 +23,12 @@ class EditItem extends Component {
   handleSubmit(event) {
     console.log(`WE HANDLING SUBMIT ${this.state.name} ${this.state.desc}`);
     event.preventDefault();
-    const url = `http://localhost:5000/catalog/${this.props.match.params.category}/${this.props.match.params.item}/JSON`;
+    const url = `http://localhost:5000/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
     fetch(url, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('jwt'),
       },
       body: JSON.stringify({
         name: this.state.name,
@@ -36,12 +38,15 @@ class EditItem extends Component {
   }
 
   handleRedirect(result) {
+    console.log(result.status);
     if (result.status === 200) {
       console.log('WE HANDLING REDIRECT');
-      const url = `/catalog/${this.props.match.params.category}/`+this.state.name;
+      const url = `/catalog/${this.props.match.params.category}/${this.state.name}`;
       this.props.history.push(url);
-    } else {
-
+    } else if (result.status === 400) {
+      this.setState({ error: 'INPUT CANNOT BE EMPTY' });
+    } else if (result.status === 401) {
+      this.setState({ error: 'UNAUTHORIZED EDIT' });
     }
   }
 
@@ -61,10 +66,20 @@ class EditItem extends Component {
       <div>
         <h2>Edit Item in {this.props.match.params.category}</h2>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} placeholder={this.state.name} />
+          <label> Name <br />
+            <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} placeholder={this.state.name} />
+          </label> <br />
+          <label> Description <br />
           <textarea name="description" value={this.state.desc} onChange={this.handleDescChange} placeholder={this.state.desc} />
+          </label><br />
           <input type="submit" value="submit" />
-        </form>
+        </form> <br />
+        <div className="row">
+          { this.state.error !== '' ? (
+            <div className="alert alert-danger col-md-6">
+              <strong>{this.state.error}</strong>
+            </div>) : '' }
+        </div>
       </div>
     );
   }

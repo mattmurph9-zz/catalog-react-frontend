@@ -17,15 +17,16 @@ class Category extends Component {
   }
 
   componentDidMount() {
+    console.log("WE IN DIDMOUNT FOR CAT ITEM LIST");
     this.setState({ category: this.props.match.params.category });
-    const url = `http://localhost:5000/catalog/${this.props.match.params.category}/JSON`;
+    const url = `http://localhost:5000/catalog/${this.props.match.params.category}`;
     // var url = 'http://localhost:5000/catalog/Baseball/JSON';
 
     this.setItemsState(url);
   }
 
   componentWillReceiveProps(nextProps) {
-    const url = `http://localhost:5000/catalog/${nextProps.match.params.category}/JSON`;
+    const url = `http://localhost:5000/catalog/${nextProps.match.params.category}`;
     this.setItemsState(url);
     this.setState({ category: nextProps.match.params.category });
   }
@@ -36,8 +37,8 @@ class Category extends Component {
     const items = this.state.items;
     return (
       <div>
-        { localStorage.getItem('user') ? <NavLink to={`/catalog/${category}/delete`}>Delete Category</NavLink> : '' }
         <h2>{category} Items</h2>
+        { localStorage.getItem('user') ? <NavLink to={`/catalog/${category}/delete`}>Delete Category</NavLink> : '' }
         { localStorage.getItem('user') ? <NavLink to={`/catalog/${category}/new`}>Add Item</NavLink> : '' }
         {items.map(i =>
           (<div key={i.name}>

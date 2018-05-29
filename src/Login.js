@@ -33,8 +33,12 @@ class Login extends Component {
           name: response.w3.ig,
           picture: response.w3.Paa,
         }),
-      }).then((response) => {console.log('response: ',response.status)
-      if(response.status == 200){localStorage.setItem('user', gresponse.w3.U3); console.log(localStorage.getItem('user'));this.setState({loggedIn: true, username: gresponse.w3.ig, access_token: gresponse.accessToken});}});;
+      }).then(response => response.json()).then(data => {console.log(data);
+                            if(data.jwt){
+                                localStorage.setItem('user', gresponse.w3.U3);
+                                localStorage.setItem('jwt', data.jwt);
+                                this.setState({loggedIn: true, username: gresponse.w3.ig, access_token: gresponse.accessToken});}}
+        );
     console.log('WE IN RESPONSE GOOGLE');
     
   };
@@ -52,7 +56,7 @@ class Login extends Component {
         }),
       }).then((response) => {console.log('response: ',response.status);
                             localStorage.removeItem('user');
-                            console.log(localStorage.getItem('user'));
+                            localStorage.removeItem('jwt');
                             if(response.status == 200){this.setState({loggedIn: false, username: '', });}});
   }
 
@@ -74,7 +78,7 @@ class Login extends Component {
         return(
             <div>
                 <p>{localStorage.getItem('user')}</p>
-                <a href='/#/catalog' onClick={this.logoutClick}>logout</a>
+                <NavLink to='/catalog' onClick={this.logoutClick}>logout</NavLink>
             </div>
         );
     }

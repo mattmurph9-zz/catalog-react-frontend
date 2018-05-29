@@ -15,7 +15,7 @@ class NewCategory extends Component {
   handleSubmit(event) {
     console.log('WE HANDLING SUBMIT');
     event.preventDefault();
-    const url = `http://localhost:5000/catalog/JSON`;
+    const url = `http://localhost:5000/catalog/`;
     fetch(url, {
       method: 'POST',
       headers: {
@@ -30,7 +30,7 @@ class NewCategory extends Component {
   handleRedirect(result) {
     if (result.status === 200) {
       console.log('WE HANDLING REDIRECT');
-      const url = '';
+      const url = '/catalog';
       this.props.history.push(url);
     } else {
 

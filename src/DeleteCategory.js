@@ -14,7 +14,7 @@ class DeleteCategory extends Component {
   handleSubmit(event) {
     console.log('WE HANDLING SUBMIT');
     event.preventDefault();
-    const url = `http://localhost:5000/catalog/${this.props.match.params.category}/JSON`;
+    const url = `http://localhost:5000/catalog/${this.props.match.params.category}`;
     console.log(this.props.match.params.category);
     fetch(url, {
       method: 'DELETE',
@@ -30,7 +30,7 @@ class DeleteCategory extends Component {
   handleRedirect(result) {
     if (result.status === 200) {
       console.log('WE HANDLING REDIRECT');
-      const url = '';
+      const url = '/catalog';
       this.props.history.push(url);
     } else {
 
