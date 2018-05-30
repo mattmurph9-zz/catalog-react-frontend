@@ -16,8 +16,8 @@ class EditItem extends Component {
     this.handleRedirect = this.handleRedirect.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({ name: this.props.match.params.item })
+  componentWillMount() {
+    this.setState({ name: this.props.match.params.item });
   }
 
   handleSubmit(event) {
@@ -28,7 +28,7 @@ class EditItem extends Component {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('jwt'),
+        Authorization: localStorage.getItem('jwt'),
       },
       body: JSON.stringify({
         name: this.state.name,
@@ -70,7 +70,7 @@ class EditItem extends Component {
             <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} placeholder={this.state.name} />
           </label> <br />
           <label> Description <br />
-          <textarea name="description" value={this.state.desc} onChange={this.handleDescChange} placeholder={this.state.desc} />
+            <textarea name="description" value={this.state.desc} onChange={this.handleDescChange} placeholder={this.state.desc} />
           </label><br />
           <input type="submit" value="submit" />
         </form> <br />

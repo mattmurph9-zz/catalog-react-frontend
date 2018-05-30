@@ -61,13 +61,13 @@ class NewItem extends Component {
             <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} placeholder={this.state.name} />
           </label> <br />
           <label> Description <br />
-          <textarea name="description" value={this.state.desc} onChange={this.handleDescChange} placeholder={this.state.desc} />
+            <textarea name="description" value={this.state.desc} onChange={this.handleDescChange} placeholder={this.state.desc} />
           </label><br />
           <input type="submit" value="submit" />
         </form>
         <div className="row">
           { this.state.error !== '' ? (
-            <div class="alert alert-danger col-md-6 col-xs-6">
+            <div className="alert alert-danger col-md-6 col-xs-6">
               <strong>{this.state.error}</strong>
             </div>) : '' }
         </div>

@@ -24,14 +24,13 @@ class Item extends Component {
   }
 
   setItemState(url) {
-    var response;
     fetch(url, {
-    method: 'GET',
-    headers: {
+      method: 'GET',
+      headers: {
         'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('jwt'),
-    },
-    }).then(results => results.json()).then(data => {this.setState({ item_name: data.item[0].name, item_desc: data.item[0].description, creator: data.item[0].creator})});
+        Authorization: localStorage.getItem('jwt'),
+      },
+    }).then(results => results.json()).then((data) => { this.setState({ item_name: data.item.name, item_desc: data.item.description, creator: data.item.creator }); });
   }
 
   render() {

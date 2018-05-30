@@ -13,31 +13,20 @@ class DeleteItem extends Component {
     this.handleRedirect = this.handleRedirect.bind(this);
   }
 
-  setItemState(name, desc) {
-
-  }
-
-  componentWillReceiveProps(nextProps) {
-
-  }
-
-  componentDidMount() {
+  componentWillMount() {
     this.setState({ name: this.props.match.params.item });
   }
 
   handleSubmit(event) {
     console.log(`WE HANDLING SUBMIT ${this.state.name}`);
     event.preventDefault();
-    const url = `http://localhost:5000/catalog/${this.props.match.params.category}/${this.state.name}`;
+    const url = `http://localhost:5000/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
     fetch(url, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('jwt'),
+        Authorization: localStorage.getItem('jwt'),
       },
-      body: JSON.stringify({
-        name: this.state.name,
-      }),
     }).then(this.handleRedirect);
   }
 

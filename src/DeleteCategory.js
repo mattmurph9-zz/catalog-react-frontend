@@ -4,9 +4,8 @@ class DeleteCategory extends Component {
   constructor() {
     super();
     this.state = {
-      name: '',
+      error: '',
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
   }
@@ -20,10 +19,8 @@ class DeleteCategory extends Component {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('jwt'),
       },
-      body: JSON.stringify({
-        name: this.props.match.params.category,
-      }),
     }).then(this.handleRedirect);
   }
 
@@ -33,7 +30,7 @@ class DeleteCategory extends Component {
       const url = '/catalog';
       this.props.history.push(url);
     } else {
-
+      this.setState({ error: 'UNAUTHORIZED DELETE' });
     }
   }
 
@@ -44,6 +41,12 @@ class DeleteCategory extends Component {
         <form onSubmit={this.handleSubmit}>
           <input type="submit" value="Yes" />
         </form>
+        <div className="row">
+          { this.state.error !== '' ? (
+            <div className="alert alert-danger col-md-6">
+              <strong>{this.state.error}</strong>
+            </div>) : '' }
+        </div>
       </div>
     );
   }
