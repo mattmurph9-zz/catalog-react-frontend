@@ -5,17 +5,17 @@ import {
   HashRouter,
   Switch,
 } from 'react-router-dom';
-import './App.css';
-import List from './List';
-import Latest from './Latest';
-import Category from './Category';
-import Item from './Item';
-import NewItem from './NewItem';
-import EditItem from './EditItem';
-import DeleteItem from './DeleteItem';
-import NewCategory from './NewCategory';
-import DeleteCategory from './DeleteCategory';
-import Login from './Login';
+import './assets/App.css';
+import List from './components/List';
+import Latest from './components/Latest';
+import Category from './components/Category';
+import Item from './components/Item';
+import NewItem from './components/NewItem';
+import EditItem from './components/EditItem';
+import DeleteItem from './components/DeleteItem';
+import NewCategory from './components/NewCategory';
+import DeleteCategory from './components/DeleteCategory';
+import Login from './components/Login';
 
 class App extends Component {
   render() {

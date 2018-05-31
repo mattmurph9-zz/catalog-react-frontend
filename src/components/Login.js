@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import GoogleLogin from 'react-google-login';
 import { NavLink } from 'react-router-dom';
-import { UserContext} from './App'
 
 
 class Login extends Component {
