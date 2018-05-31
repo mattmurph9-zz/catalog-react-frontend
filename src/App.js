@@ -18,7 +18,6 @@ import DeleteCategory from './DeleteCategory';
 import Login from './Login';
 
 class App extends Component {
-  
   render() {
     return (
       <HashRouter>
@@ -27,7 +26,7 @@ class App extends Component {
             <h1 className="App-title">Catalog App</h1>
             <Route path="/" component={Login} />
           </header>
-          <NavLink to='/catalog'>Show Latest</NavLink>
+          <NavLink to="/catalog">Show Latest</NavLink>
           <div className="row">
             <div className="col-md-4 col-xs-4">
               <Route path="/catalog" component={List} />

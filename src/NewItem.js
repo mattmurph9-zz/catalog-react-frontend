@@ -16,7 +16,6 @@ class NewItem extends Component {
   }
 
   handleSubmit(event) {
-    console.log(`WE HANDLING SUBMIT ${this.state.name} ${this.state.desc}`);
     event.preventDefault();
     const url = `http://localhost:5000/catalog/${this.props.match.params.category}`;
     fetch(url, {
@@ -34,7 +33,6 @@ class NewItem extends Component {
 
   handleRedirect(result) {
     if (result.status === 200) {
-      console.log('WE HANDLING REDIRECT');
       const url = `/catalog/${this.props.match.params.category}/${this.state.name}`;
       this.props.history.push(url);
     } else {
@@ -48,7 +46,6 @@ class NewItem extends Component {
 
   handleDescChange(event) {
     this.setState({ desc: event.target.value });
-    console.log(localStorage.getItem('user'));
   }
 
 
