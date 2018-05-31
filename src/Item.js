@@ -12,12 +12,12 @@ class Item extends Component {
   }
 
   componentDidMount() {
-    const url = `http://localhost:5000/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
+    const url = `http://${localStorage.getItem('address')}/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
     this.setItemState(url);
   }
 
   componentWillReceiveProps() {
-    const url = `http://localhost:5000/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
+    const url = `http://${localStorage.getItem('address')}/${this.props.match.params.category}/${this.props.match.params.item}`;
     this.setItemState(url);
   }
 

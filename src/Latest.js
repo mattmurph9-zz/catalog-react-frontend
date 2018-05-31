@@ -10,7 +10,7 @@ class Latest extends Component {
   }
 
   componentDidMount() {
-    const url = 'http://localhost:5000/catalog/latest';
+    const url = `http://${localStorage.getItem('address')}/catalog/latest`;
     this.setItemsState(url);
   }
 

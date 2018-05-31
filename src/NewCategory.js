@@ -7,6 +7,7 @@ class NewCategory extends Component {
     super();
     this.state = {
       name: '',
+      error: '',
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -15,9 +16,8 @@ class NewCategory extends Component {
   }
 
   handleSubmit(event) {
-    console.log('WE HANDLING SUBMIT');
     event.preventDefault();
-    const url = 'http://localhost:5000/catalog/';
+    const url = `http://${localStorage.getItem('address')}/catalog/`;
     fetch(url, {
       method: 'POST',
       headers: {
@@ -31,14 +31,16 @@ class NewCategory extends Component {
 
   handleRedirect(result) {
     if (result.status === 200) {
-      console.log('WE HANDLING REDIRECT');
       const url = '/catalog';
       this.props.history.push(url);
+    } else if (result.status === 409) {
+      this.setState({ error: 'CATEGORY NAME MUST BE UNIQUE' });
+    } else if (result.status === 400) {
+      this.setState({ error: 'CATEGORY NAME CANNOT BE EMPTY' });
     }
   }
 
   handleNameChange(event) {
-    console.log('WE HANDLING A NAME CHANGE');
     this.setState({ name: event.target.value });
   }
 
@@ -52,6 +54,12 @@ class NewCategory extends Component {
           <input type="submit" value="submit" />
         </form>
         <NavLink to="/catalog">Cancel</NavLink>
+        <div className="row">
+          { this.state.error !== '' ? (
+            <div className="alert alert-danger col-md-6">
+              <strong>{this.state.error}</strong>
+            </div>) : '' }
+        </div>
       </div>
     );
   }

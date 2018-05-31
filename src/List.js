@@ -21,7 +21,7 @@ class List extends Component {
   }
 
   updateState() {
-    fetch('http://localhost:5000/catalog')
+    fetch(`http://${localStorage.getItem('address')}/catalog`)
       .then(results => results.json()).then(data => this.setState({ categories: data.categories }));
   }
 

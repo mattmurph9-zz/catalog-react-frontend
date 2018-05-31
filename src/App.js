@@ -19,6 +19,7 @@ import Login from './Login';
 
 class App extends Component {
   render() {
+    localStorage.setItem('address', 'localhost:5000');
     return (
       <HashRouter>
         <div className="App">

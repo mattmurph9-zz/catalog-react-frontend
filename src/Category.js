@@ -12,13 +12,13 @@ class Category extends Component {
 
   componentDidMount() {
     this.setState({ category: this.props.match.params.category });
-    const url = `http://localhost:5000/catalog/${this.props.match.params.category}`;
+    const url = `http://${localStorage.getItem('address')}/catalog/${this.props.match.params.category}`;
     this.setItemsState(url);
   }
 
   // fixes issue of user changing categories but items staying the same
   componentWillReceiveProps(nextProps) {
-    const url = `http://localhost:5000/catalog/${nextProps.match.params.category}`;
+    const url = `http://${localStorage.getItem('address')}/catalog/${nextProps.match.params.category}`;
     this.setItemsState(url);
     this.setState({ category: nextProps.match.params.category });
   }

@@ -20,7 +20,7 @@ class Login extends Component {
     var gresponse = response;
     console.log(response);
     //SEND ACCESS TOKEN TO http://localhost:5000/reactconnect
-    var url = 'http://localhost:5000/reactconnect';
+    var url = `http://${localStorage.getItem('address')}/reactconnect`;
     fetch(url, {
         method: 'POST',
         headers: {

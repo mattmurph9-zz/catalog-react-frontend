@@ -17,7 +17,7 @@ class NewItem extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const url = `http://localhost:5000/catalog/${this.props.match.params.category}`;
+    const url = `http://${localStorage.getItem('address')}/catalog/${this.props.match.params.category}`;
     fetch(url, {
       method: 'POST',
       headers: {
@@ -35,8 +35,10 @@ class NewItem extends Component {
     if (result.status === 200) {
       const url = `/catalog/${this.props.match.params.category}/${this.state.name}`;
       this.props.history.push(url);
-    } else {
+    } else if (result.status === 400) {
       this.setState({ error: 'INPUT CANNOT BE EMPTY' });
+    } else if (result.status === 409) {
+      this.setState({ error: 'ITEM NAME MUST BE UNIQUE' });
     }
   }
 

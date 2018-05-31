@@ -2,11 +2,24 @@
 
 const ADDRESS = 'localhost:5000';
 
-export default function getCategories() {
-    var categories = [];
-    fetch(`http://${ADDRESS}/catalog`)
-      .then(results => results.json()).then(data => categories = data.categories);
-    console.log("categories");
-    console.log(categories);
-    return categories;
+function getCategories() {
+  const url = `http://${ADDRESS}/catalog/`;
+  return fetch(url)
+    .then(results => results.json()).then(data => data.categories);
 }
+
+function addCategory(categoryName) {
+  const url = `http://${ADDRESS}/catalog/`;
+  console.log(categoryName);
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: categoryName,
+    }),
+  });
+}
+
+export default { getCategories, addCategory };

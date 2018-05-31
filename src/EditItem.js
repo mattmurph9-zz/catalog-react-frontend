@@ -21,9 +21,8 @@ class EditItem extends Component {
   }
 
   handleSubmit(event) {
-    console.log(`WE HANDLING SUBMIT ${this.state.name} ${this.state.desc}`);
     event.preventDefault();
-    const url = `http://localhost:5000/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
+    const url = `http://${localStorage.getItem('address')}/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
     fetch(url, {
       method: 'PUT',
       headers: {
@@ -39,7 +38,6 @@ class EditItem extends Component {
 
   handleRedirect(result) {
     if (result.status === 200) {
-      console.log('WE HANDLING REDIRECT');
       const url = `/catalog/${this.props.match.params.category}/${this.state.name}`;
       this.props.history.push(url);
     } else if (result.status === 400) {

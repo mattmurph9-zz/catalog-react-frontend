@@ -14,7 +14,7 @@ class DeleteCategory extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const url = `http://localhost:5000/catalog/${this.props.match.params.category}`;
+    const url = `http://${localStorage.getItem('address')}/catalog/${this.props.match.params.category}`;
     fetch(url, {
       method: 'DELETE',
       headers: {
