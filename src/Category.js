@@ -10,7 +10,7 @@ class Category extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ category: this.props.match.params.category });
     const url = `http://localhost:5000/catalog/${this.props.match.params.category}`;
     this.setItemsState(url);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 
 class EditItem extends Component {
   constructor() {
@@ -16,7 +16,7 @@ class EditItem extends Component {
     this.handleRedirect = this.handleRedirect.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ name: this.props.match.params.item });
   }
 
@@ -38,7 +38,6 @@ class EditItem extends Component {
   }
 
   handleRedirect(result) {
-    console.log(result.status);
     if (result.status === 200) {
       console.log('WE HANDLING REDIRECT');
       const url = `/catalog/${this.props.match.params.category}/${this.state.name}`;
@@ -51,12 +50,10 @@ class EditItem extends Component {
   }
 
   handleNameChange(event) {
-    console.log('WE HANDLING A NAME CHANGE');
     this.setState({ name: event.target.value });
   }
 
   handleDescChange(event) {
-    console.log('WE HANDLING A DESCRIPTION CHANGE');
     this.setState({ desc: event.target.value });
   }
 
@@ -74,6 +71,7 @@ class EditItem extends Component {
           </label><br />
           <input type="submit" value="submit" />
         </form> <br />
+        <NavLink to={`/catalog/${this.props.match.params.category}/${this.props.match.params.item}`}>Cancel</NavLink>
         <div className="row">
           { this.state.error !== '' ? (
             <div className="alert alert-danger col-md-6">

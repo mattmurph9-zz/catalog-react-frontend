@@ -13,12 +13,11 @@ class DeleteItem extends Component {
     this.handleRedirect = this.handleRedirect.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ name: this.props.match.params.item });
   }
 
   handleSubmit(event) {
-    console.log(`WE HANDLING SUBMIT ${this.state.name}`);
     event.preventDefault();
     const url = `http://localhost:5000/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
     fetch(url, {
@@ -32,7 +31,6 @@ class DeleteItem extends Component {
 
   handleRedirect(result) {
     if (result.status === 200) {
-      console.log('WE HANDLING REDIRECT IN DELETE ITEM');
       const url = `/catalog/${this.props.match.params.category}`;
       this.props.history.push(url);
     } else if (result.status === 401) {
@@ -48,6 +46,7 @@ class DeleteItem extends Component {
         <form onSubmit={this.handleSubmit}>
           <input type="submit" value="submit" />
         </form> <br />
+        <NavLink to={`/catalog/${this.props.match.params.category}/${this.props.match.params.item}`}>Cancel</NavLink>
         <div className="row">
           { this.state.error !== '' ? (
             <div className="alert alert-danger col-md-6">

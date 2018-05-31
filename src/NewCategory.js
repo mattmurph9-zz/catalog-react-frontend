@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+
 
 class NewCategory extends Component {
   constructor() {
@@ -49,6 +51,7 @@ class NewCategory extends Component {
           <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} />
           <input type="submit" value="submit" />
         </form>
+        <NavLink to="/catalog">Cancel</NavLink>
       </div>
     );
   }

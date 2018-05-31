@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 
 class NewItem extends Component {
   constructor() {
@@ -65,6 +65,7 @@ class NewItem extends Component {
           </label><br />
           <input type="submit" value="submit" />
         </form>
+        <NavLink to={`/catalog/${this.props.match.params.category}`}>Cancel</NavLink>
         <div className="row">
           { this.state.error !== '' ? (
             <div className="alert alert-danger col-md-6 col-xs-6">

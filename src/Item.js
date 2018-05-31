@@ -8,7 +8,6 @@ class Item extends Component {
       item_name: '',
       item_desc: '',
       creator: '',
-      match: false,
     };
   }
 
@@ -17,20 +16,21 @@ class Item extends Component {
     this.setItemState(url);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.out(nextProps);
+  componentWillReceiveProps() {
     const url = `http://localhost:5000/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
     this.setItemState(url);
   }
 
   setItemState(url) {
+    console.log('WE IN HERE');
     fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('jwt'),
       },
-    }).then(results => results.json()).then((data) => { this.setState({ item_name: data.item.name, item_desc: data.item.description, creator: data.item.creator }); });
+    }).then(results => results.json())
+      .then((data) => { this.setState({ item_name: data.item.name, item_desc: data.item.description, creator: data.item.creator }); });
   }
 
   render() {
@@ -43,7 +43,7 @@ class Item extends Component {
           <div><NavLink to={`/catalog/${this.props.match.params.category}/${this.props.match.params.item}/edit`}>Edit Item</NavLink>
             <NavLink to={`/catalog/${this.props.match.params.category}/${this.props.match.params.item}/delete`}>Delete Item</NavLink>
           </div>) : '' }
-        <NavLink to={`/catalog/${this.props.match.params.category}`} onClick={this.logoutClick}>Back to {this.props.match.params.category}</NavLink>
+        <NavLink to={`/catalog/${this.props.match.params.category}`}>Back to {this.props.match.params.category}</NavLink>
       </div>
     );
   }

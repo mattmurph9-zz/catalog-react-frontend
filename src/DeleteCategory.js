@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+
 
 class DeleteCategory extends Component {
   constructor() {
@@ -11,10 +13,8 @@ class DeleteCategory extends Component {
   }
 
   handleSubmit(event) {
-    console.log('WE HANDLING SUBMIT');
     event.preventDefault();
     const url = `http://localhost:5000/catalog/${this.props.match.params.category}`;
-    console.log(this.props.match.params.category);
     fetch(url, {
       method: 'DELETE',
       headers: {
@@ -26,7 +26,6 @@ class DeleteCategory extends Component {
 
   handleRedirect(result) {
     if (result.status === 200) {
-      console.log('WE HANDLING REDIRECT');
       const url = '/catalog';
       this.props.history.push(url);
     } else {
@@ -41,6 +40,7 @@ class DeleteCategory extends Component {
         <form onSubmit={this.handleSubmit}>
           <input type="submit" value="Yes" />
         </form>
+        <NavLink to={`/catalog/${this.props.match.params.category}`}>Cancel</NavLink>
         <div className="row">
           { this.state.error !== '' ? (
             <div className="alert alert-danger col-md-6">

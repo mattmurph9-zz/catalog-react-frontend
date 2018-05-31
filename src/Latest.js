@@ -16,19 +16,18 @@ class Latest extends Component {
 
   setItemsState(url) {
     fetch(url, {
-        method: 'GET'
-      }).then(results => results.json()).then(data => this.setState({ items: data.items }));
+      method: 'GET',
+    }).then(results => results.json()).then(data => this.setState({ items: data.items }));
   }
 
   render() {
-    const items = this.state.items;
     return (
       <div>
         <h2>Latest Items</h2>
-        {items.map(i =>
-          (<div key={i.name}>
+        {this.state.items.map(i => (
+          <div key={i.name}>
             <NavLink to={`/catalog/${i.category_name}/${i.name}`}>{i.name} ({i.category_name})</NavLink>
-           </div>))}
+          </div>))}
       </div>
     );
   }
