@@ -16,8 +16,8 @@ class List extends Component {
     this.updateState();
   }
 
-  componentWillUnmount() {
-    console.log('UNMOUNT');
+  componentWillReceiveProps() {
+    //this.updateState();
   }
 
   updateState() {
