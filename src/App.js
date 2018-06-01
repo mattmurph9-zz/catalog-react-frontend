@@ -24,8 +24,14 @@ class App extends Component {
       <HashRouter>
         <div className="App">
           <header className="App-header">
-            <h1 className="App-title">Catalog App</h1>
-            <Route path="/" component={Login} />
+            <div className="row">
+              <div className="col-md-9 col-xs-9">
+                <h1 className="App-title">Catalog App</h1>
+              </div>
+              <div className="col-md-3 col-xs-3">
+                <Route path="/" component={Login} />
+              </div>
+            </div>
           </header>
           <NavLink to="/catalog">Show Latest</NavLink>
           <div className="row">

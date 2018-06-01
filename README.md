@@ -3,7 +3,7 @@
 
 ## Installation
 - Clone this repository
-- In app.js, line 22, change 'localhost:5000' to '192.168.254.197' [correct as of May 31]
+- In assets/request.js, line 2, change 'localhost:5000' to '192.168.254.197' [correct as of June 1]
 - Run these commands
 ```
 cd catalog-react-frontend

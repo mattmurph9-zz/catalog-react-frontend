@@ -1,42 +1,29 @@
 import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
+import { put } from '../assets/request';
 
 class EditItem extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: '',
-      desc: '',
-      error: '',
-    };
-
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleDescChange = this.handleDescChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRedirect = this.handleRedirect.bind(this);
-  }
+  state = {
+    name: '',
+    desc: '',
+    error: '',
+  };
 
   componentDidMount() {
     this.setState({ name: this.props.match.params.item });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
-    const url = `http://${localStorage.getItem('address')}/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
-    fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('jwt'),
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        description: this.state.desc,
-      }),
-    }).then(this.handleRedirect);
+    const url = `/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
+    const content = JSON.stringify({
+      name: this.state.name,
+      description: this.state.desc,
+    });
+    put(url, content).then(this.handleRedirect);
   }
 
-  handleRedirect(result) {
+  handleRedirect = (result) => {
     if (result.status === 200) {
       const url = `/catalog/${this.props.match.params.category}/${this.state.name}`;
       this.props.history.push(url);
@@ -47,11 +34,11 @@ class EditItem extends Component {
     }
   }
 
-  handleNameChange(event) {
+  handleNameChange = (event) => {
     this.setState({ name: event.target.value });
   }
 
-  handleDescChange(event) {
+  handleDescChange = (event) => {
     this.setState({ desc: event.target.value });
   }
 

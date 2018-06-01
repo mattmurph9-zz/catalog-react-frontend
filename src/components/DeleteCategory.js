@@ -1,32 +1,22 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { del } from '../assets/request';
 
 
 class DeleteCategory extends Component {
-  constructor() {
-    super();
-    this.state = {
-      error: '',
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRedirect = this.handleRedirect.bind(this);
-  }
+  state = {
+    error: '',
+  };
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
-    const url = `http://${localStorage.getItem('address')}/catalog/${this.props.match.params.category}`;
-    fetch(url, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('jwt'),
-      },
-    }).then(this.handleRedirect);
+    const url = `/catalog/${this.props.match.params.category}`;
+    del(url).then(this.handleRedirect);
   }
 
-  handleRedirect(result) {
+  handleRedirect = (result) => {
     if (result.status === 200) {
-      const url = '/catalog';
+      const url = '/catalog/';
       this.props.history.push(url);
     } else {
       this.setState({ error: 'UNAUTHORIZED DELETE' });

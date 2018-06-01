@@ -1,37 +1,26 @@
 import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
+import { post } from '../assets/request';
 
 class NewItem extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: '',
-      desc: '',
-      error: '',
-    };
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleDescChange = this.handleDescChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRedirect = this.handleRedirect.bind(this);
-  }
+  state = {
+    name: '',
+    desc: '',
+    error: '',
+  };
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
-    const url = `http://${localStorage.getItem('address')}/catalog/${this.props.match.params.category}`;
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        description: this.state.desc,
-        creator: localStorage.getItem('user'),
-      }),
-    }).then(this.handleRedirect);
+    const url = `/catalog/${this.props.match.params.category}`;
+    const content = JSON.stringify({
+      name: this.state.name,
+      description: this.state.desc,
+      creator: localStorage.getItem('user'),
+    });
+    post(url, content).then(this.handleRedirect);
   }
 
-  handleRedirect(result) {
+  handleRedirect = (result) => {
     if (result.status === 200) {
       const url = `/catalog/${this.props.match.params.category}/${this.state.name}`;
       this.props.history.push(url);
@@ -42,11 +31,11 @@ class NewItem extends Component {
     }
   }
 
-  handleNameChange(event) {
+  handleNameChange = (event) => {
     this.setState({ name: event.target.value });
   }
 
-  handleDescChange(event) {
+  handleDescChange = (event) => {
     this.setState({ desc: event.target.value });
   }
 

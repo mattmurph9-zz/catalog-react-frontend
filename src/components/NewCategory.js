@@ -1,35 +1,22 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { post } from '../assets/request';
 
 
 class NewCategory extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: '',
-      error: '',
-    };
+  state = {
+    name: '',
+    error: '',
+  };
 
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRedirect = this.handleRedirect.bind(this);
-  }
-
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
-    const url = `http://${localStorage.getItem('address')}/catalog/`;
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-      }),
-    }).then(this.handleRedirect);
+    const url = '/catalog/';
+    const content = JSON.stringify({ name: this.state.name });
+    post(url, content).then(this.handleRedirect);
   }
 
-  handleRedirect(result) {
+  handleRedirect = (result) => {
     if (result.status === 200) {
       const url = '/catalog';
       this.props.history.push(url);
@@ -40,7 +27,7 @@ class NewCategory extends Component {
     }
   }
 
-  handleNameChange(event) {
+  handleNameChange = (event) => {
     this.setState({ name: event.target.value });
   }
 

@@ -1,25 +1,41 @@
 
+const ADDRESS = 'http://localhost:5000';
 
-const ADDRESS = 'localhost:5000';
+export const get = url =>
+  fetch(ADDRESS + url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('jwt'),
+    },
+  }).then(results => results.json());
 
-function getCategories() {
-  const url = `http://${ADDRESS}/catalog/`;
-  return fetch(url)
-    .then(results => results.json()).then(data => data.categories);
-}
+export const del = url =>
+  fetch(ADDRESS + url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('jwt'),
+    },
+  });
 
-function addCategory(categoryName) {
-  const url = `http://${ADDRESS}/catalog/`;
-  console.log(categoryName);
-  return fetch(url, {
+export const post = (url, content) =>
+  fetch(ADDRESS + url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('jwt'),
     },
-    body: JSON.stringify({
-      name: categoryName,
-    }),
+    body: content,
   });
-}
 
-export default { getCategories, addCategory };
+export const put = (url, content) =>
+  fetch(ADDRESS + url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('jwt'),
+    },
+    body: content,
+  });
+

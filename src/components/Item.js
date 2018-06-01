@@ -1,36 +1,25 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { get } from '../assets/request';
 
 class Item extends Component {
-  constructor() {
-    super();
-    this.state = {
-      item_name: '',
-      item_desc: '',
-      creator: '',
-    };
-  }
+  state = {
+    item_name: '',
+    item_desc: '',
+    creator: '',
+  };
 
   componentDidMount() {
-    const url = `http://${localStorage.getItem('address')}/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
-    this.setItemState(url);
+    this.setItemState();
   }
 
   componentWillReceiveProps() {
-    const url = `http://${localStorage.getItem('address')}/${this.props.match.params.category}/${this.props.match.params.item}`;
-    this.setItemState(url);
+    this.setItemState();
   }
 
-  setItemState(url) {
-    console.log('WE IN HERE');
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('jwt'),
-      },
-    }).then(results => results.json())
-      .then((data) => { this.setState({ item_name: data.item.name, item_desc: data.item.description, creator: data.item.creator }); });
+  setItemState() {
+    const url = `/catalog/${this.props.match.params.category}/${this.props.match.params.item}`;
+    get(url).then((data) => { this.setState({ item_name: data.item.name, item_desc: data.item.description, creator: data.item.creator }); });
   }
 
   render() {

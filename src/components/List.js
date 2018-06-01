@@ -1,28 +1,19 @@
 import React, { Component } from 'react';
-import {
-  NavLink,
-} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { get } from '../assets/request';
 
 class List extends Component {
-  constructor() {
-    super();
-    this.state = {
-      categories: [],
-    };
-    this.updateState = this.updateState.bind(this);
-  }
+  state = {
+    categories: [],
+  };
 
   componentDidMount() {
     this.updateState();
   }
 
-  componentWillReceiveProps() {
-    //this.updateState();
-  }
-
-  updateState() {
-    fetch(`http://${localStorage.getItem('address')}/catalog`)
-      .then(results => results.json()).then(data => this.setState({ categories: data.categories }));
+  updateState = () => {
+    const url = '/catalog/';
+    get(url).then(data => this.setState({ categories: data.categories }));
   }
 
   render() {
@@ -33,7 +24,7 @@ class List extends Component {
           <div key={cat.name}>
             <NavLink className="btn" to={`/catalog/${cat.name}`}>{cat.name}</NavLink>
           </div>))}
-        { localStorage.getItem('user') ? <NavLink to="/catalog/new">Add Category</NavLink> : ''}
+        {localStorage.getItem('user') ? <NavLink to="/catalog/new">Add Category</NavLink> : ''}
 
       </div>
     );
